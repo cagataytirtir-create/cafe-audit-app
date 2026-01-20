@@ -259,10 +259,10 @@ function App() {
     if (!loginRole) {
       return (
         <div className="container login-screen">
-          <h1 style={{ fontSize: '2.5rem', marginBottom: '1rem' }}>Kafe Denetim Merkezi</h1>
-          <p style={{ color: 'var(--text-muted)', marginBottom: '3rem' }}>Yönetim ve Denetim Portalı</p>
+          <h1 className="main-title">Kafe Denetim Merkezi</h1>
+          <p className="main-subtitle">Yönetim ve Denetim Portalı</p>
 
-          <div className="auditor-grid" style={{ gridTemplateColumns: 'repeat(2, 1fr)', maxWidth: '800px' }}>
+          <div className="auditor-grid">
             <div className="auditor-card glass-card" onClick={() => setLoginRole('ADMIN')}>
               <span className="auditor-avatar">👑</span>
               <div className="auditor-name">Yönetici Girişi</div>
@@ -280,8 +280,8 @@ function App() {
 
     return (
       <div className="container login-screen">
-        <button className="back-btn" onClick={() => setLoginRole(null)} style={{ position: 'absolute', top: '2rem', left: '2rem' }}>← Geri</button>
-        <div className="glass-card" style={{ padding: '3rem', width: '100%', maxWidth: '400px' }}>
+        <button className="back-btn" onClick={() => setLoginRole(null)}>← Geri</button>
+        <div className="glass-card login-card">
           <h2>{loginRole === 'ADMIN' ? 'Yönetici' : 'Denetçi'} Girişi</h2>
           <form onSubmit={handleLogin} style={{ marginTop: '2rem', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
             <div className="input-group">
@@ -304,7 +304,7 @@ function App() {
                 onChange={e => setLoginForm({ ...loginForm, password: e.target.value })}
               />
             </div>
-            <button type="submit" className="btn-primary" style={{ marginTop: '1rem', width: '100%' }}>Giriş Yap</button>
+            <button type="submit" className="btn-primary" style={{ width: '100%' }}>Giriş Yap</button>
             {loginRole === 'AUDITOR' && (
               <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)', textAlign: 'center', marginTop: '1rem' }}>
                 Demo için: engin / 123
@@ -426,15 +426,15 @@ function App() {
           <button className="btn-primary" onClick={() => setActiveTab('A')}>Paneli Dön</button>
         </header>
 
-        <div className="history-list" style={{ marginTop: '2rem' }}>
+        <div className="history-list" style={{ marginTop: '1rem' }}>
           {users.filter(u => u.role === 'AUDITOR').map(user => (
-            <div key={user.id} className="glass-card" style={{ padding: '1.5rem', marginBottom: '1rem' }}>
+            <div key={user.id} className="glass-card user-card">
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-                  <span style={{ fontSize: '2rem' }}>{user.avatar}</span>
-                  <div>
-                    <h3 style={{ margin: 0 }}>{user.name}</h3>
-                    <p style={{ margin: '0.25rem 0', color: 'var(--text-muted)', fontSize: '0.9rem' }}>
+                <div className="user-info">
+                  <span className="user-avatar">{user.avatar}</span>
+                  <div className="user-text">
+                    <h3>{user.name}</h3>
+                    <p>
                       @{user.username} | 📍 {user.location}
                     </p>
                   </div>
@@ -467,11 +467,11 @@ function App() {
           {groupedHistory.map(group => (
             <div key={group.id} className="history-item glass-card" onClick={() => setViewingArchiveId(group)}>
               <div className="history-main-info">
-                <span className="history-id" style={{ fontSize: '0.9rem', opacity: 0.7 }}>Günlük Rapor</span>
+                <span className="history-id">Günlük Rapor</span>
                 <div className="history-meta">
                   <span>👤 {group.auditor}</span>
                   <span>📅 {group.date}</span>
-                  <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>({group.audits.length} Oturum)</span>
+                  <span className="session-count">({group.audits.length} Oturum)</span>
                 </div>
               </div>
               <div className="history-score-badge" style={{
